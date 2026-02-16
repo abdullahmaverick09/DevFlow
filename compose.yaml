@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: devflow-db
+    environment:
+      POSTGRES_USER: devflow_user
+      POSTGRES_PASSWORD: devflow_password
+      POSTGRES_DB: devflow_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - devflow_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  devflow_data:

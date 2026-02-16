@@ -1,0 +1,16 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: devflow-backend
+  datasource:
+    url: jdbc:postgresql://localhost:5432/devflow_db
+    username: devflow_user
+    password: devflow_password
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
