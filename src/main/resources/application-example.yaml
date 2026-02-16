@@ -6,8 +6,8 @@ spring:
     name: devflow-backend
   datasource:
     url: jdbc:postgresql://localhost:5432/devflow_db
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
+    username: devflow_user
+    password: devflow_password
 
   jpa:
     open-in-view: false
