@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,8 +26,14 @@ public class ProjectService {
 				.orElseThrow(() -> new RuntimeException("Project with the id: " + id + " is not found"));
 		existingProject.setName(projectDetails.getName());
 		existingProject.setDescription(projectDetails.getDescription());
-		
-		return projectRepository.save(existingProject);
-}
 
+		return projectRepository.save(existingProject);
+	}
+
+	public void deleteProject(Long id) {
+		Project existingProject = projectRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Project with the id: " + id + " is not found."));
+		
+		projectRepository.delete(existingProject);
+	}
 }

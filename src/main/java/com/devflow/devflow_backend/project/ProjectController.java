@@ -3,6 +3,7 @@ package com.devflow.devflow_backend.project;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,23 +18,27 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/v1/projects")
 @RequiredArgsConstructor
 public class ProjectController {
-    private final ProjectService projectService;
+	private final ProjectService projectService;
 
+	@PostMapping
+	public ResponseEntity<Project> createProject(@RequestBody Project project) {
+		Project savedProject = projectService.createProject(project);
+		return ResponseEntity.ok(savedProject);
+	}
 
-    @PostMapping
-    public ResponseEntity<Project> createProject(@RequestBody Project project){
-        Project savedProject = projectService.createProject(project);
-        return ResponseEntity.ok(savedProject);
-    }
+	@GetMapping
+	public ResponseEntity<List<Project>> getAllProjects() {
+		return ResponseEntity.ok(projectService.getAllProjects());
+	}
 
-    @GetMapping
-    public ResponseEntity<List<Project>> getAllProjects(){
-        return ResponseEntity.ok(projectService.getAllProjects());
-    }
-    
-    
-    @PutMapping("/{id}")
-    public ResponseEntity<Project> updateProject(@PathVariable Long id , @RequestBody Project projectDetails){
-    		return ResponseEntity.ok(projectService.updateProject(id, projectDetails));
-    }
+	@PutMapping("/{id}")
+	public ResponseEntity<Project> updateProject(@PathVariable Long id, @RequestBody Project projectDetails) {
+		return ResponseEntity.ok(projectService.updateProject(id, projectDetails));
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteProject(@PathVariable Long id) {
+		projectService.deleteProject(id);
+		return ResponseEntity.noContent().build();
+	}
 }
